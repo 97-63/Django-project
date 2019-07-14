@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAREER</title>
+
+    <style>
+#outer
+{
+    height: auto;
+    width: 1000px;
+    #border: 1px solid black;
+    margin: 0px auto;
+    opacity:0.7;
+}
+
+#header
+{
+    height: 150px;
+    width: 1000px;
+    //background-color: red;
+    border-radius:50px;
+}
+
+#logo
+{
+height:150px;
+width:150px;
+background-color: blue;
+float:left;
+
+}
+
+#banner
+{
+height: 150px;
+width: 850px;
+//background-color: black;
+float:right;
+}
+
+#menu
+    {
+     width:1000px;
+     height:50px;
+     border:1px solid #FDEBD0;
+    // margin-left:50px;
+     background-color:#FDEBD0 ;
+     border-radius:50px;
+    }
+   #menu ul
+    {
+     list-style-type:none;
+    }
+   #menu ul li
+    {
+     display:inline;
+     padding:56px;
+     margin-left:20px;
+    }
+   #menu ul li a
+    {
+     color:black;
+     text-decoration:none;
+    }
+  #menu ul li a:hover
+    {
+     color:red;
+    }
+
+
+#slider
+{
+    height: 250px;
+    width:1000px;
+
+}
+#parent
+        {
+            height:650px;
+            width:1000px;
+            background-color:#FF5733  ;
+            border-radius:50px;
+        }
+
+
+
+     #footer
+    {
+     width:1000px;
+     height:50px;
+     background-color:#FDEBD0  ;
+     border-radius:50px;
+    }
+    #copyright
+    {
+     width:500px;
+     height:50px;
+     //background-color:red;
+     float:left;
+     //border:1px solid pink;
+     font-size:20px;
+     //margin-top:20px;
+     //margin-left:20px;
+     border-radius:50px;
+    }
+    #dev
+    {
+     width:498px;
+     height:48px;
+     font-size:20px;
+     //background-color:pink;
+     //margin-top:20px;
+     float:right;
+     //border:1px solid pink;
+     border-radius:50px;
+     }
+    body
+    {
+     {% load static %}
+     background-image:url({% static 'images/back-images/pichi.jpg'%});
+    }
+</style>
+
+    <script>
+        var img=["slider2.jpg","slider3.jpg","slider4.jpg","s1.jpg"];
+        var i=0;
+
+        "{% load static %}"
+        var baseUrl="{% static 'images/images/' %}";
+        function moveSlider()
+        {
+            if(i>3)
+            {
+                i=0;
+            }
+            document.getElementById("slide").src=baseUrl+img[i];
+            i++;
+            window.setTimeout("moveSlider()",2000);
+
+        }
+
+    </script>
+
+
+</head>
+<body onload="moveSlider()">
+<span style="color:red;font-size:20px;"><marquee onmouseover="stop()" onmouseout="start()" behavior="alternate" scrollamount="10">WELCOME TO SPEEDEX . WE WILL BE HAPPY TO HELP YOU  </marquee></span>
+
+
+
+<div id="outer">
+    <div id="header">
+
+        <div id="logo">
+             {% load static %}
+
+             <img src="{% static 'images/images/logo.png' %}" width="150px" height="150px" alt="NOT FOUND" value="LOGO" style="border-radius:15px;"/>
+        </div>
+
+        <div id="banner">
+
+            <img src="{% static 'images/images/banner.jpg'%}" style="border-radius:15px;"/>
+
+        </div>
+
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'care' %}">Career</a></li>
+            <li><a href="{% url 'complain' %}">Complain</a></li>
+
+        </ul>
+    </div>
+
+    <div id="slider">
+
+        <img id="slide" width="1000px" height="250px"style="border-radius:15px;" />
+
+    </div>
+    <div id="parent">
+            <br/><br/><br/><br/>
+            <form method="post" enctype="multipart/form-data" action="{% url 'career' %}"><!-- enctype="multipart...." is used when input type='file' is there and enctype is nothing but encoding the data which you want to post on server-->
+                {% csrf_token %}
+
+            <h2 style="color: black;text-align: center;">APPLY FOR JOB </h2>
+                <table style="margin:0px auto; width:50%;background-color:white;" border="1px solid red" cellpadding="8px" cellspacing="10px"><!--cellpadding is spacing b/w cell wall and cell contents while cell spacing is the space b/w the cells-->
+                    <tr>
+                        <td>NAME:</td>
+                        <td><input type="text" name="name" required/></td>
+                    </tr>
+
+                    <tr>
+                        <td>GENDER</td>
+                        <td><input type="radio" name="gender" value="Male"/>MALE
+                        <input  type="radio" name="gender" value="Female"/>FEMALE</td>
+                    </tr>
+
+                    <tr>
+                        <td>QUALIFICATIONS</td>
+                        <td>
+                            <select name="qualification">
+                                <option>--SELECT--</option>
+                                {% for i in c %}
+                                <option>{{i.c}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>EXPERIENCE</td>
+                        <td>
+                            <select name="experience">
+                                <option>--SELECT--</option>
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                              <tr>
+                                  <td>ADDRESS</td>
+                                  <td><textarea name="address" required></textarea></td><!-- required means that if that field in a form is not filled then it wont get submited-->
+                              </tr>
+
+                              <tr>
+                                  <td>CONTACT NO</td>
+                                  <td><input type="text" name="contactno" required></td>
+                              </tr>
+
+                              <tr>
+                                  <td>EMAIL ADDRESS</td>
+                                  <td><input type="email" name="emailaddress" required/></td>
+
+                              </tr>
+
+                    <tr>
+                        <td>UPLOAD YOUR CV</td>
+                        <td><input type="file" name="cv" required></td>
+                    </tr>
+
+                    <tr>
+                        <td> &nbsp </td>
+                        <td><input type="submit" value="SUBMIT"></td>
+                    </tr>
+
+                </table>
+
+                {% if message %}
+                    <p style="text-align: center;">{{ message }}</p>
+                {% endif %}
+
+
+            </form>
+
+
+
+    </div>
+
+    <div id="footer">
+        <div id="copyright" style="margin-top:20px;text-align:center;"><b>&copy;2019 Speedex</b></div>
+        <div id="dev" style="margin-top:20px;text-align:center;"><b>Developed by Kiran Kumar</b></div>
+    </div>
+
+
+
+</div>
+</body>
+</html>

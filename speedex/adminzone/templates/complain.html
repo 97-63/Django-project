@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speedex Courier</title>
+<style>
+    #outer
+    {
+     height:1200px;
+     width:1000px;
+     //background-color:black;
+     opacity:0.7;
+    }
+    #header
+    {
+     width:1000px;
+     height:150px;
+
+    }
+    #h1
+    {
+     height:150px;
+     width:150px;
+     background-color:lightgrey;
+     float:left;
+    }
+    #h2
+    {
+     height:150px;
+     width:850px;
+     background-color:yellow;
+     float:right;
+    }
+   #menu
+    {
+     width:1000px;
+     height:50px;
+     border:1px solid lightgrey;
+    // margin-left:50px;
+     background-color:lightgrey;
+     border-radius:50px;
+    }
+   #menu ul
+    {
+     list-style-type:none;
+    }
+   #menu ul li
+    {
+     display:inline;
+     padding:56px;
+    }
+   #menu ul li a
+{
+    text-decoration: none;
+    color:black;
+
+}
+
+
+#menu ul li a:hover
+{
+    color:red;
+    text-decoration: none;
+}
+
+    #main
+    {
+     height:600px;
+     width:1000px;
+     background-color:lightpink;
+     //float:right;
+     border-radius:50px;
+    }
+
+    #footer
+    {
+     width:1000px;
+     height:50px;
+     background-color:	#ffe6e6;
+     border-radius:50px;
+    }
+    #copyright
+    {
+     width:500px;
+     height:50px;
+     //background-color:red;
+     float:left;
+     //border:1px solid pink;
+     font-size:20px;
+     //margin-top:20px;
+     //margin-left:20px;
+    }
+    #dev
+    {
+     width:498px;
+     height:48px;
+     font-size:20px;
+     //background-color:pink;
+     //margin-top:20px;
+     float:right;
+     //border:1px solid pink;
+     }
+     body
+    {
+     {% load static %}
+      background-image:url("{% static 'images/back-images/envelope.jpg' %}");
+      background-size:cover;
+    }
+</style>
+<script>
+    var img=["slider2.jpg","slider3.jpg","slider4.jpg","s1.jpg"];
+    var i=0;
+    "{% load static %}"
+    var baseURL="{% static 'images/images/' %}";
+    function moveSlider()
+    {
+     if(i>3)
+     {
+      i=0;
+     }
+     document.getElementById("slide").src=baseURL+img[i];
+     i++;
+     window.setTimeout("moveSlider()",2000);
+    }
+</script>
+</head>
+<body onload="moveSlider()">
+    <center>
+        <div id="outer">
+             <div id="header">
+                <div id="h1">
+                     {% load static %}
+                     <img src="{% static 'images/images/logo.png'%}" style="border-radius:15px;"/>
+                </div>
+                <div id="h2">
+                     <img src="{% static 'images/images/banner.jpg'%}" style="border-radius:15px;"/>
+                </div>
+             </div>
+             <div id="menu">
+              <ul>
+                  <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                  <li><a href="{% url 'complain' %}">Manage Complain</a></li>
+                  <li><a href="{% url 'careermanagement' %}">Career Management</a></li>
+                  <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                  <li><a href="{% url 'city' %}">Manage City</a></li>
+                  <li><a href="{% url 'quali' %}">Qualification</a></li>
+                  <li><a href="{% url 'login' %}">Log Out</a></li>
+              </ul>
+             </div>
+
+                 <div id="main">
+                     <br/><br/><br/><br/>
+                       <h2 style="text-align:center;color:black;">Customer Complaints</h2>
+
+                            <table style="margin:0 auto;width:50%" border="1">
+                         <tr>
+
+
+                             <th> Name</th>
+                             <th>Gender</th>
+                             <th>Subject</th>
+                             <th>Contact No.</th>
+                             <th>Email Address</th>
+                             <th>Complain</th>
+                             <th>Delete</th>
+                         </tr>
+                     {%if p%}
+                      {% for n in p %}
+                         <tr>
+                             <td>{{n.name}}</td>
+                             <td>{{n.gender}}</td>
+                             <td>{{n.subject}}</td>
+                             <td>{{n.contactno}}</td>
+                             <td>{{n.emailaddress}}</td>
+                             <td>{{n.complaintext}}</td>
+                             <td><a href="{% url 'delete5' n.contactno %}">Delete</a></td>
+                         </tr>
+                      {% endfor %}
+                      {% endif %}
+                    </table>
+
+                 </div>
+             <div id="footer">
+                 <div id="copyright" style="margin-top:20px;">&copy;2019 Speedex</div>
+                 <div id="dev" style="margin-top:20px;">Developed by Kiran Kumar</div>
+             </div>
+        </div>
+    </center>
+</body>
+</html>

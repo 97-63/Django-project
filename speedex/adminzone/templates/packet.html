@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Admin Zone</title>
+<style>
+ #outer
+ {
+  width:1000px;
+  height:auto;
+  //background-color:blue;
+  opacity:0.7;
+ }
+ #parent
+ {
+  width:1000px;
+  height:150px;
+  //background-color:blue;
+ }
+ #logo
+ {
+  width:150px;
+  height:150px;
+  float:left;
+ }
+ #ad
+ {
+  width:850px;
+  height:150px;
+  float:right;
+  font-size:50px;
+ }
+ #menu
+ {
+  width:1000px;
+  height:100px;
+  margin-left:-7px;
+  border:1px solid lightgrey;
+  margin-top:5px;
+  background-color:lightgrey;
+  color:black;
+  border-radius:50px;
+ }
+ #menu ul
+ {
+  list-style-type:none;
+ }
+ #menu ul li
+ {
+  display:inline;
+  padding:10px;
+ }
+ #menu ul li a
+ {
+  color:black;
+  text-decoration:none;
+  display:inline;
+ }
+ #menu ul li a:hover
+ {
+  color:red;
+ }
+#main
+{
+ width:1000px;
+ height:700px;
+ background-color:lightyellow;
+ border-radius:50px;
+}
+#footer
+{
+ width:1000px;
+ height:100px;
+ background-color:lightgrey;
+ border-radius:50px;
+}
+#copyright
+{
+ width:500px;
+ height:100px;
+ //background-color:red;
+ float:left;
+ font-size:30px;
+ margin-top:20px;
+}
+#dev
+{
+ width:500px;
+ height:100px;
+ font-size:30px;
+ //background-color:pink;
+ margin-top:20px;
+ float:right;
+}
+body
+    {
+     {% load static %}
+      background-image:url("{% static 'images/back-images/envelo.jpg' %}");
+      background-size:cover;
+    }
+
+</style>
+<script>
+    var img=["slider2.jpg","slider3.jpg","slider4.jpg","s1.jpg"];
+    var i=0;
+    "{% load static %}"
+    var baseURL="{% static 'images/images/' %}";
+    function moveSlider()
+    {
+     if(i>3)
+     {
+      i=0;
+     }
+     document.getElementById("slide").src=baseURL+img[i];
+     i++;
+     window.setTimeout("moveSlider()",2000);
+    }
+
+ function mobvalidation()
+   {
+    var mob=document.getElementById("t1").value;
+    if(mob.length==10)
+    {
+     if(mob[0]=='9' || mob[0]=='8' ||mob[0]=='7'||mob[0]=='6')//because string is a charachter array
+      {
+
+      }
+    }
+    else
+    {
+     alert("invalid mobile number");
+    }
+   }
+
+
+</script>
+</head>
+<body>
+    <center>
+        <div id="outer">
+            <div id="parent">
+                   <div id="logo">
+                        {% load static %}
+                        <img src="{% static 'images/images/logo.png'%}" style="border-radius:15px;" />
+                   </div>
+                   <div id="ad"><img src="{% static 'images/images/banner.jpg' %}"style="border-radius:15px;" /></div>
+            </div>
+            <div id="menu">
+                 <ul>
+                  <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                  <li><a href="{% url 'managecomplain' %}">Manage Complain</a></li>
+                  <li><a href="{% url 'careermanagement' %}">Career Management</a></li>
+                  <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                  <li><a href="{% url 'city' %}">Manage City</a></li>
+                  <li><a href="{% url 'quali' %}">Qualification</a></li>
+                  <li><a href="{% url 'login' %}">Log Out</a></li>
+                 </ul>
+            </div>
+            <div id="main">
+                <br/><br/><br/>
+                 <form method="post" action="{% url 'calling' %}"  >
+                     {% csrf_token %}
+                     <h2 style="color:black;text-align:center;">Add Consignment</h2>
+                     <table style="width:40%;margin:0 auto" border="1" cellpadding="5px" cellspacing="5px">
+                         <tr>
+                             <td width="10px">Reference No</td>
+                             <td><input type="text" name="refno" value="{{refno}}" readonly/><!-- here for refno no need to run it in a for loop because you need to print data at start only and not after the page is submitted.    -->
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Sender Name</td>
+                             <td><input type="text" name="sendername" width="10px" required/></td>
+                         </tr>
+                         <tr>
+                             <td>Sender's Address</td>
+                             <td><input type="text" name="senderaddress" width="10px" required></td>
+                         </tr>
+                         <tr>
+                             <td>Sender's Mob no</td>
+                             <td><input type="number" name="sendermobno" width="10px" id="t2" required></td>
+                         </tr>
+                         <tr>
+                             <td>Reciever Name</td>
+                             <td><input type="text" name="receivername" width="10px" required></td>
+                         </tr>
+                         <tr>
+                             <td>Reciever's Address</td>
+                             <td><input type="text" name="receiveraddress" width="10px" required></td>
+                         </tr>
+                         <tr>
+                             <td>Reciever's Mob no</td>
+                             <td><input type="number" name="receivermobno" width="10px" id="t1" required></td>
+                         </tr>
+
+                         <tr>
+                             <td>Source City</td>
+                             <td><select name="source">
+                                 <option>--Select City--</option>
+                                 {% for i in cities %}
+                                 <option>{{ i.cityname }}</option>
+                                 {% endfor %}
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Intermediate City</td>
+                             <td><select name="mid">
+                                  <option>--Select City--</option>
+                                 {% for i in cities %}
+                                 <option>{{ i.cityname }}</option>
+                                 {% endfor %}
+                             </select></td>
+                         </tr>
+                         <tr>
+                             <td>Destination City</td>
+                             <td width="10px" ><select name="destination">
+                                  <option>--Select City--</option>
+                                 {% for i in cities %}
+                                 <option>{{ i.cityname }}</option>
+                                 {% endfor %}
+                             </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Weight</td>
+                             <td><input type="text" name="weight" width="10px" required></td>
+                         </tr>
+                         <tr>
+                             <td >Charges</td>
+                             <td ><input type="number" name="charge" width="10px" required></td>
+                         </tr>
+                         <tr>
+                             <td width="10px">Status
+                                  <td width="10px">
+                                      <select name="status">
+                                            <option>--Status--</option>
+                                            <option>Initiated</option>
+                                            <option>Delivered</option>
+                                            <option>Pending</option>
+                                      </select>
+                                  </td>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td></td>
+                             <td width="10px"><input type="Submit" value="Submit" onclick="mobvalidation()" onclick="mobvalid()" width="10px"/></td>
+                         </tr>
+
+                     </table>
+                 </form>
+                 <a href="{% url 'packupdel' %}">Click Here to Update or Delete.</a>
+            </div>
+            <div id="footer">
+                  <div id="copyright">&copy;2019 Speedex</div>
+                  <div id="dev">Developed by Kiran Kumar</div>
+            </div>
+        </div>
+    </center>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speedex Courier</title>
+<style>
+    #outer
+    {
+     height:1200px;
+     width:1000px;
+     //background-color:black;
+     opacity:0.7;
+    }
+    #header
+    {
+     width:1000px;
+     height:150px;
+    }
+    #h1
+    {
+     height:150px;
+     width:150px;
+     background-color:lightgrey;
+     float:left;
+    }
+    #h2
+    {
+     height:150px;
+     width:850px;
+     background-color:yellow;
+     float:right;
+    }
+   #menu
+    {
+     width:1000px;
+     height:50px;
+     border:1px solid #ABB2B9;
+    // margin-left:50px;
+     background-color:#ABB2B9;
+     border-radius:50px;
+    }
+   #menu ul
+    {
+     list-style-type:none;
+    }
+   #menu ul li
+    {
+     display:inline;
+     padding:56px;
+    }
+   #menu ul li a
+    {
+     color:black;
+     text-decoration:none;
+    }
+  #menu ul li a:hover
+    {
+     color:red;
+    }
+    #slider
+    {
+     height:250px;
+     width:1000px;
+    }
+    #main
+    {
+     height:600px;
+     width:1000px;
+     //background-color:red;
+     border-radius:50px;
+    }
+    #left
+    {
+     height:600px;
+     width:300px;
+     //background-color:lightblue;
+     float:left;
+    }
+    #right
+    {
+     height:600px;
+     width:700px;
+     //background-color:lightyellow;
+     float:right;
+    }
+
+    #footer
+    {
+     width:1000px;
+     height:50px;
+     background-color:#ABB2B9;
+     margin-top:-20px;
+     border-radius:50px;
+    }
+
+    #dev
+    {
+     width:1000px;
+     height:50px;
+     font-size:20px;
+     //background-color:pink;
+
+
+     //border:1px solid pink;
+     }
+    body
+    {
+     {% load static %}
+     background-image:url("{% static 'images/back-images/back1.jpg' %}");
+     background-size:cover;
+    }
+</style>
+<script>
+    var img=["slider2.jpg","slider3.jpg","slider4.jpg","s1.jpg"];
+    var i=0;
+    "{% load static %}"
+    var baseURL="{% static 'images/images/' %}";
+    function moveSlider()
+    {
+     if(i>3)
+     {
+      i=0;
+     }
+     document.getElementById("slide").src=baseURL+img[i];
+     i++;
+     window.setTimeout("moveSlider()",2000);
+    }
+</script>
+</head>
+<body onload="moveSlider()">
+    <center>
+        <div id="outer">
+             <div id="header">
+                <div id="h1">
+                     {% load static %}
+                     <img src="{% static 'images/images/logo.png'%}" style="border-radius:15px;" />
+                </div>
+                <div id="h2">
+                     <img src="{% static 'images/images/banner.jpg'%}" style="border-radius:15px;" />
+                </div>
+             </div>
+             <div id="menu">
+              <ul>
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'about' %}">About Us</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="{% url 'career' %}">Career</a></li>
+                  <li><a href="{% url 'complain' %}">Complain</a></li>
+              </ul>
+             </div>
+             <div id="slider">
+                <img id="slide" width="1000" height="250" style="border-radius:15px;" />
+             </div>
+             <div id="main">
+                 <div id="left">
+                     {% load static %}
+                     <img src="{% static 'images/back-images/com.png' %}" style="border-radius:15px;" />
+                 </div>
+                 <div id="right">
+                     <br/><br/><h1></h1>
+                 </div>
+             </div>
+             <div id="footer">
+
+                 <div id="dev" style="margin-top:20px;text-align:center;border-radius:15px;">&copy;2019 Speedex &nbsp;Developed by Kiran Kumar</div>
+             </div>
+        </div>
+    </center>
+</body>
+</html>

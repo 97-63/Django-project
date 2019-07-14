@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Admin Zone</title>
+<style>
+ #outer
+ {
+  width:1000px;
+  height:auto;
+  //background-color:blue;
+  opacity:0.7;
+ }
+ #parent
+ {
+  width:1000px;
+  height:150px;
+  //background-color:blue;
+ }
+ #logo
+ {
+  width:150px;
+  height:150px;
+  float:left;
+
+ }
+ #ad
+ {
+  width:850px;
+  height:150px;
+  float:right;
+  font-size:50px;
+  border-radius:50px;
+ }
+ #menu
+ {
+  width:1000px;
+  height:70px;
+  //margin-left:-7px;
+  border:1px solid lightgrey ;
+  border-radius:50px;
+  background-color:lightgrey ;
+  color:black;
+ }
+ #menu ul
+ {
+  list-style-type:none;
+ }
+ #menu ul li
+ {
+  display:inline;
+  padding:15px;
+
+ }
+ #menu ul li a
+ {
+  color:black;
+  text-decoration:none;
+  display:inline;
+  margin-top:30px;
+ }
+ #menu ul li a:hover
+ {
+  color:red;
+ }
+#main
+{
+ width:1000px;
+ height:700px;
+ background-color:lightblue;
+ border-radius:50px;
+}
+#footer
+    {
+     width:1000px;
+     height:50px;
+     background-color:lightgrey;
+     border-radius:50px;
+    }
+    #copyright
+    {
+     width:500px;
+     height:50px;
+     //background-color:red;
+     float:left;
+     //border:1px solid pink;
+     font-size:20px;
+     //margin-top:20px;
+     //margin-left:20px;
+    }
+    #dev
+    {
+     width:498px;
+     height:48px;
+     font-size:20px;
+     float:right;
+     border:1px solid pink;
+     }
+     body
+    {
+     {% load static %}
+      background-image:url("{% static 'images/back-images/back2.jpg' %}");
+      background-size:cover;
+    }
+</style>
+
+</head>
+<body>
+    <center>
+        <div id="outer">
+            <div id="parent">
+                   <div id="logo">
+                        {% load static %}
+                        <img src="{% static 'images/images/logo.png'%}" style="border-radius:15px;"/>
+                   </div>
+                <div id="ad"><b>Welcome To Admin Zone</b></div>
+            </div>
+            <div id="menu">
+                 <ul>
+                  <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                  <li><a href="{% url 'managecomplain' %}">Manage Complain</a></li>
+                  <li><a href="{% url 'careermanagement' %}">Career Management</a></li>
+                  <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                  <li><a href="{% url 'city' %}">Manage City</a></li>
+                  <li><a href="{% url 'quali' %}">Qualification</a></li>
+                  <li><a href="{% url 'login' %}">Log Out</a></li>
+                 </ul>
+            </div>
+            <div id="main">
+                <form method="post" action="{% url 'addnotification' %}">
+                    {% csrf_token %}
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/><br/>
+                    <h2 style="color:black;text-align:center;">Notification Management</h2>
+                    <table style="margin:0 auto;width:50%" border="1">
+                        <tr>
+                            <td>Enter Notification Text</td>
+                            <td>
+                                <textarea name="notificationmsg" required></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="submit" value="ADD"/></td>
+                        </tr>
+                    </table>
+                </form>
+                {% if notification %}
+                   <table style="width:50%;margin:0 auto;margin-top:10px;" border="1">
+                       <tr>
+                           <th>Id</th>
+                           <td>Notification Message</td>
+                           <td>Posted Date</td>
+                           <th>Delete</th>
+                       </tr>
+                       {% for n in notification %}
+                           <tr>
+                               <td>{{ n.id }}</td>
+                               <td>{{ n.notificationmsg }}</td>
+                               <td>{{ n.posteddate }}</td>
+                               <td><a href="{% url 'delete' n.id %}">Delete</a></td>
+                           </tr>
+                       {% endfor %}
+                   </table>
+
+                {% endif %}
+
+
+            </div>
+            <div id="footer">
+                  <div id="copyright" style="margin-top:10px;">&copy;2019 Speedex</div>
+                  <div id="dev" style="margin-top:10px;">Developed by Kiran Kumar</div>
+            </div>
+        </div>
+    </center>
+</body>
+</html>

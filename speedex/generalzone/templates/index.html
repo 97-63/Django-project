@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speedex Courier</title>
+<style>
+    #outer
+    {
+     height:1200px;
+     width:1000px;
+     //background-color:black;
+     opacity:0.8;
+    }
+    #header
+    {
+     width:1000px;
+     height:150px;
+     //background-color:aqua;
+     border-radius:50px;
+    }
+    #h1
+    {
+     height:150px;
+     width:150px;
+     background-color:lightgrey;
+     float:left;
+     border-radius:50px;
+    }
+    #h2
+    {
+     height:150px;
+     width:850px;
+     background-color:yellow;
+     float:right;
+     border-radius:50px;
+    }
+   #menu
+    {
+     width:1000px;
+     height:50px;
+     border:1px solid lightgrey;
+    // margin-left:50px;
+     background-color:	lightgrey;
+     border-radius:50px;
+    }
+   #menu ul
+    {
+     list-style-type:none;
+    }
+   #menu ul li
+    {
+     display:inline;
+     padding:56px;
+    }
+   #menu ul li a
+{
+    text-decoration: none;
+    color:black;
+
+}
+
+
+#menu ul li a:hover
+{
+    color:red;
+    text-decoration: none;
+}
+    #slider
+    {
+     height:250px;
+     width:1000px;
+     //background-color:brown;
+     //float:right;
+    }
+    #main
+    {
+     height:600px;
+     width:1000px;
+     //background-color:red;
+     //float:right;
+    }
+    #left
+    {
+     height:600px;
+     width:300px;
+     background-color:pink;
+     float:left;
+     color:red;
+    }
+    #right
+    {
+     height:600px;
+     width:700px;
+     background-color:lightblue;
+     float:right;
+    }
+    #footer
+    {
+     height:150px;
+     width:1000px;
+    // background-color:lightgrey;
+     font-color:black;
+     //float:left;
+     border-radius:15px;
+    }
+    #one
+    {
+     height:150px;
+     width:166px;
+
+     //font-color:black;
+     float:left;
+     border-radius:35px;
+    }
+    #two
+    {
+     height:150px;
+     width:167px;
+     background-color:lightgrey;
+     //font-color:black;
+     float:left;
+     border-radius:15px;
+    }
+   #three
+    {
+     height:150px;
+     width:167px;
+     background-color:lightgrey;
+     //font-color:black;
+     float:left;
+     border-radius:15px;
+    }
+    #four
+    {
+     height:150px;
+     width:167px;
+     background-color:lightgrey;
+     //font-color:black;
+     float:left;
+     border-radius:15px;
+    }
+   body
+    {
+     {% load static %}
+      background-image:url("{% static 'images/back-images/back2.jpg' %}");
+      background-size:cover;
+    }
+    hr
+    {
+     border:none;
+     border-top:1px dotted black;
+     height:1px;
+     width:100%;
+    }
+</style>
+
+<script>
+    var img=["slider2.jpg","slider3.jpg","slider4.jpg","s1.jpg"];
+    var i=0;
+    "{% load static %}"
+    var baseURL="{% static 'images/images/' %}";
+    function moveSlider()
+    {
+     if(i>3)
+     {
+      i=0;
+     }
+     document.getElementById("slide").src=baseURL+img[i];
+     i++;
+     window.setTimeout("moveSlider()",2000);
+    }
+</script>
+</head>
+<body onload="moveSlider()">
+    <center>
+        <div id="outer" >
+             <div id="header">
+                <div id="h1">
+                     {% load static %}
+                     <img src="{% static 'images/images/logo.png'%}" style="border-radius:15px;"/>
+                </div>
+                <div id="h2">
+                     <img src="{% static 'images/images/banner.jpg'%}" style="border-radius:15px;"/>
+                </div>
+             </div>
+             <div id="menu">
+              <ul>
+                  <li><a href="{% url 'index' %}">Home</a></li>
+                  <li><a href="{% url 'about' %}">About Us</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="{% url 'career' %}">Career</a></li>
+                  <li><a href="{% url 'complain' %}">Complain</a></li>
+              </ul>
+             </div>
+             <div id="slider">
+                <img id="slide" width="1000" height="250" style="border-radius:15px;"/>
+             </div>
+             <div id="main" style="border-radius:15px;">
+                 <div id="left" style="border-radius:15px;">
+                     <h1 style="color:black;">News And Information</h1>
+                     <marquee behavior="auto" scrollamount="10" onmouseover="start;" onmouseout="stop;" direction="up">
+                     <br/><br/><br/><br/><br/><br/><br/>
+                     <table>
+                         {% for n in notification %}
+                             <tr>
+                                 <td><ul><li><hr>{{n.notificationmsg}}</hr></li></ul></td>
+
+                             </tr>
+                             <tr>
+                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{n.posteddate}}</td>
+                             </tr>
+                         {% endfor %}
+                     </table>
+                     </marquee>
+                 </div>
+                 <div id="right" style="border-radius:15px;">
+                     <br/>
+                     <br/>
+                     <center>
+                         <h1 >Search Consignment</h1>
+                     </center>
+                     <br/>
+                     <form method="post" action="{% url 'consign' %}">
+                         {% csrf_token %}
+                     <table style="margin:0 auto;width:50%;background-color:white;" border="1">
+                     <tr>
+                         <td width="40%">Enter your Ref no:</td>
+                         <td><input type="text" name="refno"/></td>
+                     </tr>
+                     <tr>
+                         <td></td>
+                         <td><input type="Submit"/></td>
+                     </tr>
+                     </table>
+                     </form>
+                     <br/>
+                     <br/>
+                     <table style="margin:0 auto;width:50%;background-color:white;" border="1">
+                        <tr>
+                            <td>Status</td>
+                            <td>Source</td>
+                            <td>Mid</td>
+                            <td>Destination</td>
+                        </tr>
+                     {% if r %}
+                         <tr>
+                              <td> {{r.status}} </td>
+                              <td> {{r.source}} </td>
+                              <td> {{r.mid}} </td>
+                              <td> {{r.destination}} </td>
+                         </tr>
+                         {% else %}
+                       {% if msg %}
+                       <tr><h1>{{msg}}</h1></tr>
+                       {% endif %}
+                     {% endif %}
+                     </table>
+                 </div>
+             </div>
+             <div id="footer" style="opacity:3;">
+                 <h1>Address:</h1><h2>shop no 114 lekhraj panna Vikas nagar, Lucknow, Uttar Pradesh 226022</h2>
+             </div>
+        </div>
+    </center>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

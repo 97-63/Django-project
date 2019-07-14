@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAREER</title>
+
+    <style>
+#outer
+{
+    height: auto;
+    width: 1000px;
+    #border: 1px solid black;
+    margin: 0px auto;
+    opacity:0.7;
+}
+
+#header
+{
+    height: 150px;
+    width: 1000px;
+    //background-color: red;
+    border-radius:50px;
+}
+
+#logo
+{
+height:150px;
+width:150px;
+background-color: blue;
+float:left;
+
+}
+
+#banner
+{
+height: 150px;
+width: 850px;
+//background-color: black;
+float:right;
+}
+
+#menu
+ {
+  width:1000px;
+  height:70px;
+  //margin-left:-7px;
+  border:1px solid lightgrey ;
+  border-radius:50px;
+  background-color:#FDEBD0  ;
+  color:black;
+ }
+ #menu ul
+ {
+  list-style-type:none;
+ }
+ #menu ul li
+ {
+  display:inline;
+  padding:15px;
+
+ }
+ #menu ul li a
+ {
+  color:black;
+  text-decoration:none;
+  display:inline;
+  margin-top:30px;
+ }
+ #menu ul li a:hover
+ {
+  color:red;
+ }
+
+
+#slider
+{
+    height: 250px;
+    width:1000px;
+
+}
+#parent
+        {
+            height:650px;
+            width:1000px;
+            background-color:pink ;
+            border-radius:50px;
+        }
+
+
+
+     #footer
+    {
+     width:1000px;
+     height:50px;
+     background-color:#FDEBD0  ;
+     border-radius:50px;
+    }
+    #copyright
+    {
+     width:500px;
+     height:50px;
+     //background-color:red;
+     float:left;
+     //border:1px solid pink;
+     font-size:20px;
+     //margin-top:20px;
+     //margin-left:20px;
+     border-radius:50px;
+    }
+    #dev
+    {
+     width:498px;
+     height:48px;
+     font-size:20px;
+     //background-color:pink;
+     //margin-top:20px;
+     float:right;
+     //border:1px solid pink;
+     border-radius:50px;
+     }
+    body
+    {
+     {% load static %}
+     background-image:url({% static 'images/back-images/pichi.jpg'%});
+    }
+</style>
+</head>
+<div id="outer">
+    <div id="header">
+
+        <div id="logo">
+             {% load static %}
+
+             <img src="{% static 'images/images/logo.png' %}" width="150px" height="150px" alt="NOT FOUND" value="LOGO" style="border-radius:15px;"/>
+        </div>
+
+        <div id="banner">
+
+            <img src="{% static 'images/images/banner.jpg'%}" style="border-radius:15px;"/>
+
+        </div>
+
+    </div>
+
+    <div id="menu">
+        <ul>
+                   <li><a href="{% url 'adminhome' %}">Admin Home</a></li>
+                  <li><a href="{% url 'managecomplain' %}">Manage Complain</a></li>
+                  <li><a href="{% url 'careermanagement' %}">Career Management</a></li>
+                  <li><a href="{% url 'packet' %}">Manage Consignment</a></li>
+                  <li><a href="{% url 'city' %}">Manage City</a></li>
+                  <li><a href="{% url 'quali' %}">Qualification</a></li>
+                  <li><a href="{% url 'login' %}">Log Out</a></li>
+        </ul>
+    </div>
+
+
+    <div id="parent">
+
+            <br/><br/><br/><br/><br/>
+            <h2 style="text-align:center;">Job Applications</h2>
+
+                    {% if car %}
+                   <table style="width:50%;margin:0 auto;margin-top:10px;" border="1">
+                       <tr>
+                           <th>Id</th>
+                           <td>Name</td>
+                           <td>Gender</td>
+                           <td>Qualifications</td>
+                           <td>Experience</td>
+                           <td>Address</td>
+                           <td>Contact No</td>
+                           <td>Email Address</td>
+                           <td>C.V</td>
+                           <td>Delete</td>
+                       </tr>
+                       {% for n in car %}
+                           <tr>
+                               <td>{{ n.id }}</td>
+                               <td>{{ n.name }}</td>
+                               <td>{{ n.gender }}</td>
+                               <td>{{ n.qualification }}</td>
+                               <td>{{ n.experience }}</td>
+                               <td>{{ n.address}}</td>
+                               <td>{{ n.contactno}}</td>
+                               <td>{{ n.emailaddress }}</td>
+                               <td>{{ n.cv }}</td>
+                               <td><a href="{% url 'delete4' n.id %}">Delete</a></td>
+                           </tr>
+                       {% endfor %}
+                   </table>
+                {% endif %}
+
+
+
+    </div>
+
+    <div id="footer">
+        <div id="copyright" style="margin-top:20px;text-align:center;"><b>&copy;2019 Speedex</b></div>
+        <div id="dev" style="margin-top:20px;text-align:center;"><b>Developed by Kiran Kumar</b></div>
+    </div>
+
+
+
+</div>
+</body>
+</html>
